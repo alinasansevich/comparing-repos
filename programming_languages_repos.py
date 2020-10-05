@@ -84,34 +84,34 @@ for language in languages:
 
 
 
-# # Make visualization.
-# colors = ['#333366',
-#           '#ff0000',
-#           '#e0115f',
-#           '#a9a9a9',
-#           '#e08b3e',
-#           '#90ee90',
-#           '#ffff00',
-#           '#e53fe5']
+# Make visualization.
+colors = ['#333366',
+          '#ff0000',
+          '#e0115f',
+          '#a9a9a9',
+          '#e08b3e',
+          '#90ee90',
+          '#ffff00',
+          '#e53fe5']
 
-# my_config = pygal.Config()
-# my_config.x_label_rotation = 45
-# my_config.show_legend = False
-# my_config.title_font_size = 24
-# my_config.label_font_size = 14
-# my_config.major_label_font_size = 18
-# my_config.truncate_label = 15
-# my_config.show_y_guides = False
-# my_config.width = 1000
+my_config = pygal.Config()
+my_config.x_label_rotation = 45
+my_config.show_legend = False
+my_config.title_font_size = 24
+my_config.label_font_size = 14
+my_config.major_label_font_size = 18
+my_config.truncate_label = 15
+my_config.show_y_guides = False
+my_config.width = 1000
     
-# my_style = LS('{}'.format(colors[languages.index(language)]), base_style=LCS)
+my_style = LS('{}'.format(colors[languages.index(language)]), base_style=LCS)
 
 
-# # add a for loop here!
-# chart = pygal.Bar(my_config, style=my_style)
-# chart.title = 'Most-Starred {} Projects on GitHub'.format(language.capitalize())
-# chart.x_labels = names
-
-# chart.add('', plot_dicts)
-# chart.render_to_file('{}_repos.svg'.format(language))
+for language in languages:
+    chart = pygal.Bar(my_config, style=my_style)
+    chart.title = 'Most-Starred {} Projects on GitHub'.format(language.capitalize())
+    chart.x_labels = repos_names[language]
+    
+    chart.add('', repos_info[language])
+    chart.render_to_file('{}_repos.svg'.format(language))
 
