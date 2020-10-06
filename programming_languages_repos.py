@@ -75,7 +75,7 @@ for language in languages:
         plot_dicts.append(plot_dict)
         
         contributors_urls[repo_dict['name']] = repo_dict['contributors_url']
-    
+        
     repos_names[language] = names
     repos_info[language] = plot_dicts
     # Make an API call to get the number of contributors
@@ -104,14 +104,67 @@ my_config.truncate_label = 15
 my_config.show_y_guides = False
 my_config.width = 1000
     
-my_style = LS('{}'.format(colors[languages.index(language)]), base_style=LCS)
-
 
 for language in languages:
+    my_style = LS('{}'.format(colors[languages.index(language)]), base_style=LCS)
     chart = pygal.Bar(my_config, style=my_style)
     chart.title = 'Most-Starred {} Projects on GitHub'.format(language.capitalize())
     chart.x_labels = repos_names[language]
     
     chart.add('', repos_info[language])
     chart.render_to_file('{}_repos.svg'.format(language))
+
+
+my_config = pygal.Config()
+# my_config.x_label_rotation = 45
+# my_config.show_legend = False
+my_config.title_font_size = 24
+my_config.label_font_size = 14
+my_config.major_label_font_size = 18
+my_config.truncate_label = 15
+# my_config.show_y_guides = False
+my_config.width = 1000
+
+
+
+# Compare 5 top projects
+########### WIP
+chart = pygal.HorizontalBar(my_config)#, style=my_style)
+chart.title = "Number of Contributors for the Top 5 Projects on GitHub."
+for language in languages:
+    # my_style = LS(colors[languages.index(language)], base_style=LCS)
+    for k, v in num_contributors[language]:
+        chart.add(k, v)
+chart.render_to_file('num_contrib_top5_repos.svg')
+########### WIP
+
+# ONLY ONE GRAPH, COLORS WORK, I NEED TO REARRANGE DATA NOW
+from pygal.style import Style
+my_style = Style(colors=colors)
+chart = pygal.HorizontalBar(my_config, style=my_style)
+chart.title = "Number of Contributors for the Top 5 Python Projects on GitHub."
+
+chart.add('system-design-primer', 99)
+chart.add('public-apis', 100)
+chart.add('Python', 100)
+chart.add('models', 100)
+chart.add('thefuck', 100)
+chart.render_to_file('num_contrib_top5_Python_repos2.svg')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

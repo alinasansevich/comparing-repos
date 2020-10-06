@@ -83,3 +83,48 @@ for repo_dict in repo_dicts:
         'xlink': repo_dict['html_url'],
         }
     plot_dicts.append(plot_dict)
+    
+    
+###################################
+
+
+######### ESTOY ACA
+# for the top 5:
+# 	name of the repo
+# 	html-url of the repo
+# 	number of contributors
+
+
+# Make an API call for each language and store the responses.
+repos_names = {}      # k:language, v:list of repos_names
+repos_info = {}       # k:'value', v: stargazers_count; k:'xlink', v:'html-url'
+num_contributors = {} # k-language, v-{repo-name: num_contributors}
+
+for language in languages:
+    url = 'https://api.github.com/search/repositories?q=language:{}&sort=stars'
+    url = url.format(language)
+    r = requests.get(url)
+    response_dict = r.json()
+    # Create a list to hold the info from the 30 most starred repos. 
+    repo_dicts = response_dict['items']
+    
+    # Extract info for the graphs.
+    names, plot_dicts = [], []
+    contributors_urls = {}
+    for repo_dict in repo_dicts:
+        
+        names.append(repo_dict['name'])
+        
+        plot_dict = {
+            'value': repo_dict['stargazers_count'],
+            'label': repo_dict['description'] or '',
+            'xlink': repo_dict['html_url'],
+            }
+        plot_dicts.append(plot_dict)
+        
+        contributors_urls[repo_dict['name']] = repo_dict['contributors_url']
+    
+    repos_names[language] = names
+    repos_info[language] = plot_dicts
+    # Make an API call to get the number of contributors
+    num_contributors[language] = get_contributors_num(contributors_urls)
