@@ -117,7 +117,25 @@ for k, v in contributors_urls.items():
 
 
 
-response_dict
-Out[50]: 
-{'message': "API rate limit exceeded for 208.180.46.178. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
- 'documentation_url': 'https://developer.github.com/v3/#rate-limiting'}
+# response_dict
+# Out[50]: 
+# {'message': "API rate limit exceeded for 208.180.46.178.(But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+#   'documentation_url': 'https://developer.github.com/v3/#rate-limiting'}
+
+# from Google: how to obtain an api key for github
+# In your account settings, open the "Developer settings" section - 
+# https://github.com/settings/apps. Click on "New GitHub App" 
+# Fill the form with application details.
+
+# https://github.com/settings/apps/new
+# https://docs.github.com/en/free-pro-team@latest/developers/apps/about-apps
+
+
+
+
+
+
+
+
+
+
